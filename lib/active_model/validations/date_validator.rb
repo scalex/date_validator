@@ -21,7 +21,7 @@ module ActiveModel
       # Call `#initialize` on the superclass, adding a default
       # `allow_nil: false` option.
       def initialize(options)
-        super(options.reverse_merge(allow_nil: false))
+        super(options.reverse_merge(allow_nil: false, beginning_of_day: true))
       end
 
       # Validates the arguments passed to the validator.
@@ -74,6 +74,11 @@ module ActiveModel
 
           original_value = value
           original_option_value = option_value
+
+          if options[:beginning_of_day]
+            value = value.beginning_of_day
+            option_value = option_value.beginning_of_day
+          end
 
           # To enable to_i conversion, these types must be converted to Datetimes
           if defined?(ActiveSupport::TimeWithZone)
