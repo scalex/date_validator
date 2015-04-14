@@ -75,8 +75,10 @@ module ActiveModel
           original_value = value
           original_option_value = option_value
 
-          value = value.beginning_of_day
-          option_value = option_value.beginning_of_day
+          if options[:beginning_of_day])
+            value = value.beginning_of_day
+            option_value = option_value.beginning_of_day
+          end
 
           # To enable to_i conversion, these types must be converted to Datetimes
           if defined?(ActiveSupport::TimeWithZone)
